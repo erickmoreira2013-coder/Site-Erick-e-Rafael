@@ -1,636 +1,290 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Os Irmãos Moreira</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg:          #0d0d0d;
-    --bg-2:        #141414;
-    --bg-3:        #1a1a1a;
-    --bg-4:        #202020;
-    --border:      #2a2a2a;
-    --border-mid:  #333333;
-    --gold:        #b89a5a;
-    --gold-light:  #d4b878;
-    --gold-muted:  #8a7240;
-    --gold-faint:  rgba(184,154,90,0.10);
-    --gold-faint2: rgba(184,154,90,0.18);
-    --text-white:  #f0ece4;
-    --text-mid:    #a09a90;
-    --text-dim:    #6a6460;
-    --shadow:      rgba(0,0,0,0.5);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Lato', sans-serif;
-    background: var(--bg);
-    color: var(--text-white);
-    overflow-x: hidden;
-  }
-
-  /* ═══ HEADER ═══ */
-  header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 1000;
-    background: rgba(13,13,13,0.94);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2.5rem;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.6);
-  }
-
-  .logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--text-white);
-    text-decoration: none;
-    white-space: nowrap;
-    letter-spacing: 0.02em;
-  }
-  .logo span { color: var(--gold); }
-
-  nav { display: flex; align-items: center; gap: 0.1rem; }
-
-  nav a {
-    font-size: 0.78rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-mid);
-    text-decoration: none;
-    padding: 0.5rem 0.9rem;
-    border-radius: 4px;
-    font-weight: 400;
-    transition: color 0.2s, background 0.2s;
-  }
-  nav a:hover { color: var(--text-white); background: var(--bg-4); }
-
-  nav a.btn-contact {
-    border: 1px solid var(--gold-muted);
-    color: var(--gold-light);
-    font-weight: 700;
-    padding: 0.45rem 1.1rem;
-    border-radius: 24px;
-    margin-left: 0.6rem;
-    background: var(--gold-faint);
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
-  }
-  nav a.btn-contact:hover {
-    background: var(--gold-faint2);
-    border-color: var(--gold);
-    color: var(--gold-light);
-  }
-
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 4px;
-    background: none;
-    border: none;
-  }
-  .hamburger span {
-    display: block; width: 24px; height: 2px;
-    background: var(--text-mid); border-radius: 2px; transition: all 0.3s;
-  }
-
-  .mobile-nav {
-    display: none;
-    position: fixed;
-    top: 70px; left: 0; right: 0;
-    background: var(--bg-2);
-    border-bottom: 1px solid var(--border);
-    padding: 1rem;
-    flex-direction: column;
-    gap: 0.25rem;
-    z-index: 999;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.7);
-  }
-  .mobile-nav.open { display: flex; }
-  .mobile-nav a {
-    font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--text-mid); text-decoration: none; padding: 0.8rem 1rem;
-    border-radius: 6px; transition: background 0.2s, color 0.2s;
-  }
-  .mobile-nav a:hover { background: var(--bg-4); color: var(--text-white); }
-  .mobile-nav a.btn-contact {
-    border: 1px solid var(--gold-muted); color: var(--gold-light);
-    font-weight: 700; text-align: center; margin-top: 0.5rem; background: var(--gold-faint);
-  }
-
-  /* ═══ SECTIONS ═══ */
-  .section { display: none; min-height: 100vh; padding-top: 70px; }
-  .section.active { display: block; }
-
-  /* ═══ HOME ═══ */
-  #home { background: var(--bg); }
-
-  .hero {
-    padding: 5rem 2rem 3rem;
-    text-align: center;
-    max-width: 860px;
-    margin: 0 auto;
-  }
-
-  .hero-label {
-    display: inline-block;
-    font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--gold); border: 1px solid var(--gold-muted);
-    background: var(--gold-faint); padding: 0.35rem 1.1rem;
-    border-radius: 20px; margin-bottom: 1.75rem; font-weight: 700;
-  }
-
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.8rem, 7vw, 5rem);
-    font-weight: 700; color: var(--text-white);
-    line-height: 1.08; margin-bottom: 1.25rem;
-  }
-  .hero h1 em { font-style: italic; color: var(--gold-light); }
-
-  .hero-rule {
-    width: 50px; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 0 auto 1.75rem;
-  }
-
-  .hero p {
-    font-size: 1.05rem; color: var(--text-mid);
-    line-height: 1.85; max-width: 520px;
-    margin: 0 auto; font-weight: 300;
-  }
-
-  /* ── Composer Cards ── */
-  .composers-showcase {
-    display: flex;
-    justify-content: center;
-    padding: 3.5rem 2rem 5rem;
-    max-width: 1060px;
-    margin: 0 auto;
-    gap: 2rem;
-    flex-wrap: wrap;
-  }
-
-  .composer-card {
-    flex: 1;
-    min-width: 300px;
-    max-width: 480px;
-    background: var(--bg-2);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    overflow: hidden;
-    position: relative;
-    transition: transform 0.35s, box-shadow 0.35s, border-color 0.3s;
-  }
-
-  .composer-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 28px 64px rgba(0,0,0,0.75), 0 0 0 1px var(--gold-muted);
-    border-color: var(--gold-muted);
-  }
-
-  /* gradient overlay so text is legible */
-  .composer-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 55%;
-    background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, transparent 100%);
-    border-radius: 0 0 18px 18px;
-    pointer-events: none;
-  }
-
-  .composer-photo-wrap {
-    width: 100%;
-    aspect-ratio: 3 / 4;
-    background: var(--bg-3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .composer-photo-wrap img {
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
-  }
-
-  .composer-photo-placeholder {
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    width: 100%; height: 100%; gap: 1rem;
-  }
-  .composer-photo-placeholder svg { width: 110px; height: 110px; opacity: 0.15; }
-  .composer-photo-placeholder span {
-    font-size: 0.68rem; letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--text-dim); font-weight: 700;
-  }
-
-  .composer-info {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    z-index: 2;
-    padding: 2rem 1.75rem 1.75rem;
-  }
-
-  .composer-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.7rem; font-weight: 700;
-    color: var(--text-white); line-height: 1.1; margin-bottom: 0.4rem;
-  }
-
-  .composer-role {
-    font-size: 0.7rem; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--gold); font-weight: 700;
-  }
-
-  /* ═══ PAGE HERO ═══ */
-  .page-hero {
-    background: var(--bg-2);
-    padding: 3.5rem 2rem 2.5rem;
-    text-align: center;
-    border-bottom: 1px solid var(--border);
-  }
-  .page-hero h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    color: var(--text-white); margin-bottom: 0.6rem;
-  }
-  .page-hero p { color: var(--text-dim); font-size: 0.9rem; font-weight: 300; letter-spacing: 0.04em; }
-  .ornament-line {
-    width: 40px; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 1rem auto 0;
-  }
-
-  /* ═══ QUEM SOMOS ═══ */
-  #quem-somos { background: var(--bg); }
-
-  .about-content { max-width: 840px; margin: 0 auto; padding: 3.5rem 2rem; }
-
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
-
-  .about-card {
-    background: var(--bg-2); border: 1px solid var(--border);
-    border-radius: 12px; padding: 1.75rem; transition: border-color 0.2s;
-  }
-  .about-card:hover { border-color: var(--border-mid); }
-  .about-card h3 {
-    font-family: 'Playfair Display', serif; font-size: 1.3rem;
-    color: var(--text-white); margin-bottom: 0.9rem;
-  }
-  .about-card p { color: var(--text-mid); line-height: 1.85; font-size: 0.93rem; font-weight: 300; }
-
-  .about-full {
-    background: var(--bg-2); border: 1px solid var(--border);
-    border-radius: 12px; padding: 1.75rem;
-  }
-  .about-full h3 {
-    font-family: 'Playfair Display', serif; font-size: 1.3rem;
-    color: var(--text-white); margin-bottom: 0.9rem;
-  }
-  .about-full p { color: var(--text-mid); line-height: 1.85; font-size: 0.93rem; font-weight: 300; }
-
-  /* ═══ MÚSICAS ═══ */
-  #musicas { background: var(--bg); }
-
-  .musicas-content { max-width: 880px; margin: 0 auto; padding: 2.5rem 2rem; }
-
-  .music-item {
-    background: var(--bg-2); border: 1px solid var(--border);
-    border-radius: 12px; margin-bottom: 0.75rem; overflow: hidden;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .music-item:hover { border-color: var(--border-mid); box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
-
-  .music-header {
-    display: flex; align-items: center;
-    justify-content: space-between;
-    padding: 1.1rem 1.4rem; gap: 1rem; flex-wrap: wrap;
-  }
-
-  .music-left { display: flex; align-items: center; gap: 1rem; flex: 1; min-width: 0; }
-
-  .music-number {
-    font-family: 'Playfair Display', serif; font-size: 0.95rem;
-    color: var(--gold-muted); font-weight: 600; min-width: 26px;
-  }
-
-  .music-info { flex: 1; min-width: 0; }
-
-  .music-title {
-    font-family: 'Playfair Display', serif; font-size: 1rem;
-    color: var(--text-white); font-weight: 600;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-
-  .music-genre {
-    font-size: 0.7rem; color: var(--text-dim);
-    letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px;
-  }
-
-  .music-controls { display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap; }
-
-  .audio-placeholder {
-    background: var(--bg-3); border: 1px solid var(--border);
-    border-radius: 8px; padding: 0.38rem 0.85rem;
-    font-size: 0.73rem; color: var(--text-dim); font-style: italic;
-    display: flex; align-items: center; gap: 0.4rem;
-  }
-  .audio-placeholder::before { content: '♪'; color: var(--gold-muted); }
-
-  audio { height: 30px; border-radius: 8px; }
-
-  .lyric-toggle {
-    background: var(--gold-faint); border: 1px solid var(--gold-muted);
-    color: var(--gold); font-size: 0.72rem; letter-spacing: 0.1em;
-    text-transform: uppercase; font-weight: 700; padding: 0.38rem 0.9rem;
-    border-radius: 20px; cursor: pointer;
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
-    font-family: 'Lato', sans-serif;
-  }
-  .lyric-toggle:hover, .lyric-toggle.open {
-    background: var(--gold-faint2); border-color: var(--gold); color: var(--gold-light);
-  }
-
-  .lyrics-panel {
-    max-height: 0; overflow: hidden;
-    transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1);
-    border-top: 1px solid transparent;
-  }
-  .lyrics-panel.open {
-    max-height: 600px; border-top-color: var(--border); padding: 1.5rem 1.4rem;
-  }
-
-  .lyrics-label {
-    font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--gold-muted); font-weight: 700; margin-bottom: 0.85rem;
-  }
-
-  .lyrics-panel pre {
-    font-family: 'Lato', sans-serif; font-size: 0.88rem;
-    color: var(--text-mid); line-height: 1.95; white-space: pre-wrap; font-weight: 300;
-  }
-
-  /* ═══ PARCERIAS ═══ */
-  #parcerias { background: var(--bg); }
-
-  .parcerias-content { max-width: 920px; margin: 0 auto; padding: 2.5rem 2rem; }
-
-  .parceiro-block {
-    background: var(--bg-2); border: 1px solid var(--border);
-    border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem;
-    display: grid; grid-template-columns: 150px 1fr;
-    gap: 2rem; align-items: start; transition: border-color 0.2s;
-  }
-  .parceiro-block:hover { border-color: var(--border-mid); }
-
-  .parceiro-foto-wrap { text-align: center; }
-
-  .parceiro-foto {
-    width: 100px; height: 100px; border-radius: 50%;
-    background: var(--bg-3); border: 1px solid var(--border-mid);
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 0.65rem; overflow: hidden;
-  }
-  .parceiro-foto img { width: 100%; height: 100%; object-fit: cover; }
-  .parceiro-foto svg { width: 50px; height: 50px; opacity: 0.2; }
-
-  .parceiro-nome {
-    font-family: 'Playfair Display', serif; font-size: 0.95rem;
-    font-weight: 600; color: var(--text-white);
-  }
-
-  .parceiro-musicas h4 {
-    font-family: 'Playfair Display', serif; font-size: 1.1rem;
-    color: var(--text-white); margin-bottom: 1rem;
-  }
-
-  .parceiro-musicas ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
-
-  .parceiro-musicas ul li {
-    display: flex; align-items: center; gap: 0.65rem;
-    font-size: 0.88rem; color: var(--text-mid); font-weight: 300;
-    padding: 0.5rem 0.75rem; background: var(--bg-3);
-    border-radius: 8px; border: 1px solid var(--border); transition: border-color 0.2s;
-  }
-  .parceiro-musicas ul li:hover { border-color: var(--border-mid); }
-  .parceiro-musicas ul li::before { content: '♪'; color: var(--gold-muted); font-size: 0.8rem; flex-shrink: 0; }
-
-  /* ═══ FOOTER ═══ */
-  footer {
-    background: var(--bg-2); border-top: 1px solid var(--border);
-    padding: 3rem 2rem 2rem; text-align: center;
-  }
-
-  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--text-white); margin-bottom: 0.5rem; }
-  .footer-logo span { color: var(--gold); }
-
-  .footer-tagline {
-    font-size: 0.78rem; color: var(--text-dim); margin-bottom: 1.75rem;
-    font-weight: 300; letter-spacing: 0.08em; text-transform: uppercase;
-  }
-
-  .footer-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
-  .footer-links a {
-    color: var(--text-dim); text-decoration: none; font-size: 0.75rem;
-    letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s;
-  }
-  .footer-links a:hover { color: var(--gold); }
-
-  .footer-rule { width: 36px; height: 1px; background: var(--border-mid); margin: 0 auto 1.5rem; }
-
-  .footer-copy { font-size: 0.75rem; color: var(--text-dim); line-height: 1.9; }
-
-  /* ═══ RESPONSIVE ═══ */
-  @media (max-width: 768px) {
-    nav { display: none; }
-    .hamburger { display: flex; }
-    .about-grid { grid-template-columns: 1fr; }
-    .parceiro-block { grid-template-columns: 1fr; }
-    .parceiro-foto-wrap { display: flex; align-items: center; gap: 1rem; }
-    .parceiro-foto { margin: 0; width: 72px; height: 72px; }
-    .music-header { flex-direction: column; align-items: flex-start; }
-    .music-controls { width: 100%; }
-    .composers-showcase { flex-direction: column; align-items: center; }
-    .composer-card { max-width: 100%; min-width: unset; width: 100%; }
-  }
-
-  @media (max-width: 500px) {
-    header { padding: 0 1.25rem; }
-    .logo { font-size: 1.15rem; }
-    .hero { padding: 3rem 1.25rem 2rem; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Os Irmãos Moreira</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<!-- ═══ HEADER ═══ -->
-<header>
-  <a class="logo" href="#" onclick="showSection('home')">Os Irmãos <span>Moreira</span></a>
-  <nav>
-    <a href="#" onclick="showSection('home')">Home</a>
-    <a href="#" onclick="showSection('quem-somos')">Quem Somos</a>
-    <a href="#" onclick="showSection('musicas')">Músicas</a>
-    <a href="#" onclick="showSection('parcerias')">Parcerias</a>
-    <!-- ⚠️ Troque pelo número real: DDI + DDD + número, sem espaços ou símbolos -->
-    <a href="https://wa.me/5511999999999" target="_blank" class="btn-contact">Entre em Contato</a>
-  </nav>
-  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</header>
+  <!-- ═══ HEADER ═══ -->
+  <header>
+    <a class="logo" href="#" onclick="showSection('home')">Irmãos <span>Moreira</span></a>
+    <nav>
+      <a href="#" onclick="showSection('home')">Home</a>
+      <a href="#" onclick="showSection('quem-somos')">Quem Somos</a>
+      <a href="#" onclick="showSection('musicas')">Músicas</a>
+      <a href="#" onclick="showSection('parcerias')">Parcerias</a>
+      <a href="https://wa.me/5511999999999" target="_blank" class="btn-contact">Entre em Contato</a>
+    </nav>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
 
-<!-- MENU MOBILE -->
-<div class="mobile-nav" id="mobileNav">
-  <a href="#" onclick="showSection('home'); closeMenu()">Home</a>
-  <a href="#" onclick="showSection('quem-somos'); closeMenu()">Quem Somos</a>
-  <a href="#" onclick="showSection('musicas'); closeMenu()">Músicas</a>
-  <a href="#" onclick="showSection('parcerias'); closeMenu()">Parcerias</a>
-  <a href="https://wa.me/5511999999999" target="_blank" class="btn-contact">Entre em Contato ↗</a>
-</div>
-
-<!-- ═══ HOME ═══ -->
-<section id="home" class="section active">
-  <div class="hero">
-    <span class="hero-label">Composição · Música · Arte</span>
-    <h1>Os Irmãos<br><em>Moreira</em></h1>
-    <div class="hero-rule"></div>
-    <p>Duas vozes, uma alma. Rafael e Erick Moreira transformam sentimentos em melodias que tocam fundo e ficam para sempre.</p>
+  <!-- MENU MOBILE -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#" onclick="showSection('home'); closeMenu()">Home</a>
+    <a href="#" onclick="showSection('quem-somos'); closeMenu()">Quem Somos</a>
+    <a href="#" onclick="showSection('musicas'); closeMenu()">Músicas</a>
+    <a href="#" onclick="showSection('parcerias'); closeMenu()">Parcerias</a>
+    <a href="https://wa.me/5511999999999" target="_blank" class="btn-contact">Entre em Contato ↗</a>
   </div>
 
-  <div class="composers-showcase">
+  <!-- ═══ HOME ═══ -->
+  <section id="home" class="section active">
+    <div class="hero">
+      <h1>Acervo Musical de <em>Erick & Rafael</em></h1>
+      <div class="hero-rule"></div>
+    </div>
 
-    <!--
-      RAFAEL — para usar foto real, substitua o bloco .composer-photo-placeholder por:
-      <img src="fotos/rafael.jpg" alt="Rafael Moreira">
-    -->
-    <div class="composer-card">
-      <div class="composer-photo-wrap">
-        <div class="composer-photo-placeholder">
-          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="35" r="22" fill="#b89a5a"/>
-            <ellipse cx="50" cy="82" rx="34" ry="22" fill="#b89a5a"/>
-          </svg>
-          <span>Adicionar foto</span>
+    <div class="composers-showcase">
+
+      <div class="composer-card" onclick="showSection('perfil-rafael')" style="cursor:pointer;" title="Ver perfil de Rafael">
+        <div class="composer-photo-wrap">
+          <img src="img/rafa2.png" alt="Rafael Moreira">
+        </div>
+        <div class="composer-card-hover-hint">Ver Perfil</div>
+        <div class="composer-info">
+          <div class="composer-name">Rafael Moreira</div>
+          <div class="composer-role">Compositor &amp; Músico</div>
         </div>
       </div>
-      <div class="composer-info">
-        <div class="composer-name">Rafael Moreira</div>
-        <div class="composer-role">Compositor &amp; Músico</div>
-      </div>
-    </div>
 
-    <!--
-      ERICK — para usar foto real, substitua o bloco .composer-photo-placeholder por:
-      <img src="fotos/erick.jpg" alt="Erick Moreira">
-    -->
-    <div class="composer-card">
-      <div class="composer-photo-wrap">
-        <div class="composer-photo-placeholder">
-          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="35" r="22" fill="#b89a5a"/>
-            <ellipse cx="50" cy="82" rx="34" ry="22" fill="#b89a5a"/>
-          </svg>
-          <span>Adicionar foto</span>
+      <div class="composer-card" onclick="showSection('perfil-erick')" style="cursor:pointer;" title="Ver perfil de Erick">
+        <div class="composer-photo-wrap">
+          <img src="img/eri.png" alt="Erick Moreira">
+        </div>
+        <div class="composer-card-hover-hint">Ver Perfil</div>
+        <div class="composer-info">
+          <div class="composer-name">Erick Moreira</div>
+          <div class="composer-role">Compositor &amp; Músico</div>
         </div>
       </div>
-      <div class="composer-info">
-        <div class="composer-name">Erick Moreira</div>
-        <div class="composer-role">Compositor &amp; Músico</div>
+
+    </div>
+  </section>
+
+  <!-- ═══ QUEM SOMOS ═══ -->
+  <section id="quem-somos" class="section">
+    <div class="page-hero">
+      <h2>Quem Somos</h2>
+      <p>A história por trás das melodias</p>
+      <div class="ornament-line"></div>
+    </div>
+    <div class="about-content">
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>Rafael Moreira</h3>
+          <p>Desde criança envolvido com a música, Rafael desenvolveu seu talento de forma natural, encontrando nas
+            composições uma forma única de expressar seus sentimentos. Sua sensibilidade melódica e domínio da harmonia
+            são marcas inconfundíveis de seu trabalho.</p>
+        </div>
+        <div class="about-card">
+          <h3>Erick Moreira</h3>
+          <p>Erick cresceu imerso no universo musical ao lado do irmão. Com olhar poético e criativo, transforma
+            palavras em versos que tocam a alma. Seu estilo lírico e sua capacidade de contar histórias através da
+            música são sua maior marca.</p>
+        </div>
+      </div>
+      <div class="about-full">
+        <h3>Nossa Jornada Juntos</h3>
+        <p>Unidos pelo sangue e pela paixão pela música, Rafael e Erick Moreira formam uma dupla de compositores que
+          alia talento individual e sinergia familiar para criar canções autênticas e emocionantes. Juntos, os irmãos
+          Moreira constroem um legado musical que reflete suas vivências, seus sonhos e a profundidade do vínculo que os
+          une. Cada composição carrega um pedaço de suas histórias e o desejo de tocar corações por onde a música
+          chegar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MÚSICAS ═══ -->
+  <section id="musicas" class="section">
+    <div class="page-hero">
+      <h2>Músicas</h2>
+      <p>Nossa discografia — ouça e leia as letras</p>
+      <div class="ornament-line"></div>
+    </div>
+    <div class="musicas-content" id="musicList"></div>
+  </section>
+
+  <!-- ═══ PARCERIAS ═══ -->
+  <section id="parcerias" class="section">
+    <div class="page-hero">
+      <h2>Parcerias</h2>
+      <p>Músicas criadas em colaboração com artistas especiais</p>
+      <div class="ornament-line"></div>
+    </div>
+    <div class="parcerias-content" id="parceirasList"></div>
+  </section>
+
+  <!-- ═══ PERFIL — RAFAEL ═══ -->
+  <section id="perfil-rafael" class="section">
+    <div class="perfil-hero">
+      <button class="perfil-back" onclick="showSection('home')">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Voltar
+      </button>
+
+      <div class="perfil-cover">
+        <div class="perfil-photo-wrap">
+          <img src="img/rafa2.png" alt="Rafael Moreira">
+        </div>
+        <div class="perfil-cover-info">
+          <div class="perfil-tag">Compositor &amp; Músico</div>
+          <h1 class="perfil-name">Rafael <em>Moreira</em></h1>
+          <div class="perfil-rule"></div>
+          <p class="perfil-tagline">Melodias que nascem do coração e tocam a alma</p>
+        </div>
       </div>
     </div>
 
-  </div>
-</section>
+    <div class="perfil-body">
 
-<!-- ═══ QUEM SOMOS ═══ -->
-<section id="quem-somos" class="section">
-  <div class="page-hero">
-    <h2>Quem Somos</h2>
-    <p>A história por trás das melodias</p>
-    <div class="ornament-line"></div>
-  </div>
-  <div class="about-content">
-    <div class="about-grid">
-      <div class="about-card">
-        <h3>Rafael Moreira</h3>
-        <p>Desde criança envolvido com a música, Rafael desenvolveu seu talento de forma natural, encontrando nas composições uma forma única de expressar seus sentimentos. Sua sensibilidade melódica e domínio da harmonia são marcas inconfundíveis de seu trabalho.</p>
+      <div class="perfil-stats-row">
+        <div class="perfil-stat">
+          <div class="perfil-stat-label">Nascimento</div>
+          <div class="perfil-stat-value">Rio de Janeiro, RJ</div>
+        </div>
+        <div class="perfil-stat">
+          <div class="perfil-stat-label">Idade</div>
+          <div class="perfil-stat-value">32 anos</div>
+        </div>
+        <div class="perfil-stat">
+          <div class="perfil-stat-label">Hobby</div>
+          <div class="perfil-stat-value">Violão &amp; Leitura</div>
+        </div>
+        <div class="perfil-stat">
+          <div class="perfil-stat-label">Principal Influência</div>
+          <div class="perfil-stat-value">Milton Nascimento</div>
+        </div>
       </div>
-      <div class="about-card">
-        <h3>Erick Moreira</h3>
-        <p>Erick cresceu imerso no universo musical ao lado do irmão. Com olhar poético e criativo, transforma palavras em versos que tocam a alma. Seu estilo lírico e sua capacidade de contar histórias através da música são sua maior marca.</p>
+
+      <div class="perfil-grid">
+
+        <div class="perfil-card">
+          <div class="perfil-card-icon">♪</div>
+          <h3>Principal Influência</h3>
+          <p>Milton Nascimento é a grande estrela-guia de Rafael. A forma como Milton transita entre o sagrado e o cotidiano, entre a voz e o silêncio, moldou profundamente a sensibilidade harmônica de Rafael. Além de Milton, Djavan e Ivan Lins também deixaram marcas indeléveis no seu jeito de compor.</p>
+        </div>
+
+        <div class="perfil-card">
+          <div class="perfil-card-icon">◈</div>
+          <h3>Hobby &amp; Personalidade</h3>
+          <p>Fora da música, Rafael é um leitor voraz — especialmente de literatura brasileira e filosofia. Tocar violão sozinho nas madrugadas é outro ritual sagrado. Diz que as melhores melodias aparecem quando o mundo inteiro está dormindo e só ele e as estrelas estão acordados.</p>
+        </div>
+
+      </div>
+
+      <div class="perfil-origem">
+        <div class="perfil-origem-deco">✦</div>
+        <h3>Como Tudo Começou</h3>
+        <p>Rafael cresceu ouvindo o rádio ligado na cozinha da sua avó no Rio de Janeiro. Com sete anos, encontrou um violão velho encostado num canto da sala e, sem que ninguém o ensinasse, começou a dedilhar as mesmas notas que ouvia na televisão. Foi aí que todos perceberam: aquilo não era curiosidade comum.</p>
+        <p>Aos doze anos já compunha pequenas canções que emocionavam a família nas reuniões de domingo. A música foi deixando de ser passatempo e tornando-se destino. Estudou harmonia por conta própria, ouviu discos até o vinil gastar, e transformou cada sentimento em acorde. A parceria com o irmão Erick veio naturalmente — dois mundos que sempre foram um só.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ PERFIL — ERICK ═══ -->
+  <section id="perfil-erick" class="section">
+    <div class="perfil-hero">
+      <button class="perfil-back" onclick="showSection('home')">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Voltar
+      </button>
+
+      <div class="perfil-cover">
+        <div class="perfil-photo-wrap">
+          <img src="img/eri.png" alt="Erick Moreira">
+        </div>
+        <div class="perfil-cover-info">
+          <div class="perfil-tag">Compositor &amp; Músico</div>
+          <h1 class="perfil-name">Erick <em>Moreira</em></h1>
+          <div class="perfil-rule"></div>
+          <p class="perfil-tagline">Palavras que viram versos, versos que viram canções</p>
+        </div>
       </div>
     </div>
-    <div class="about-full">
-      <h3>Nossa Jornada Juntos</h3>
-      <p>Unidos pelo sangue e pela paixão pela música, Rafael e Erick Moreira formam uma dupla de compositores que alia talento individual e sinergia familiar para criar canções autênticas e emocionantes. Juntos, os irmãos Moreira constroem um legado musical que reflete suas vivências, seus sonhos e a profundidade do vínculo que os une. Cada composição carrega um pedaço de suas histórias e o desejo de tocar corações por onde a música chegar.</p>
+
+    <div class="perfil-body">
+
+      <div class="perfil-stats-row">
+        <div class="perfil-stat">
+          <div class="perfil-stat-label">Nascimento</div>
+          <div class="perfil-stat-value">Rio de Janeiro, RJ</div>
+        </div>
+        <div class="perfil-stat">
+          <div class="perfil-stat-label">Idade</div>
+          <div class="perfil-stat-value">28 anos</div>
+        </div>
+        <div class="perfil-stat">
+          <div class="perfil-stat-label">Hobby</div>
+          <div class="perfil-stat-value">Poesia &amp; Cinema</div>
+        </div>
+        <div class="perfil-stat">
+          <div class="perfil-stat-label">Principal Influência</div>
+          <div class="perfil-stat-value">Caetano Veloso</div>
+        </div>
+      </div>
+
+      <div class="perfil-grid">
+
+        <div class="perfil-card">
+          <div class="perfil-card-icon">♪</div>
+          <h3>Principal Influência</h3>
+          <p>Caetano Veloso é para Erick o que o dicionário é para um escritor — a fonte inesgotável. A liberdade poética de Caetano, a forma como ele mistura o popular e o erudito, o moderno e o ancestral, é algo que Erick busca em cada verso que escreve. Zeca Pagodinho e Chico Buarque completam o seu panteão.</p>
+        </div>
+
+        <div class="perfil-card">
+          <div class="perfil-card-icon">◈</div>
+          <h3>Hobby &amp; Personalidade</h3>
+          <p>Erick é apaixonado por cinema — especialmente o cinema novo brasileiro. Escrever poemas que nunca viram músicas também é um hábito seu. Acredita que um bom letrista precisa viver intensamente antes de escrever. "Não dá pra escrever sobre saudade sem ter sentido saudade de verdade", costuma dizer.</p>
+        </div>
+
+      </div>
+
+      <div class="perfil-origem">
+        <div class="perfil-origem-deco">✦</div>
+        <h3>Como Tudo Começou</h3>
+        <p>Para Erick, tudo começou com um caderno. Antes mesmo de entender de música, ele já enchia páginas com rimas e histórias. Era a forma que encontrou de processar o mundo ao redor — a saudade do interior dos avós, as brigas de infância, os amores que passavam rápido demais.</p>
+        <p>Foi quando Rafael começou a pegar esses textos e transformá-los em melodias que Erick entendeu seu verdadeiro chamado: a letra. Juntos, descobriram que Rafael sentia o que Erick escrevia, e Erick escrevia o que Rafael não conseguia dizer em palavras. A dupla nasceu assim — não de um plano, mas de um encontro natural entre dois mundos que sempre estiveram destinados a se completar.</p>
+      </div>
+
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ═══ MÚSICAS ═══ -->
-<section id="musicas" class="section">
-  <div class="page-hero">
-    <h2>Músicas</h2>
-    <p>Nossa discografia — ouça e leia as letras</p>
-    <div class="ornament-line"></div>
-  </div>
-  <div class="musicas-content" id="musicList"></div>
-</section>
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="footer-logo">Os Irmãos <span>Moreira</span></div>
+    <div class="footer-tagline">Composição · Música · Arte</div>
+    <div class="footer-links">
+      <a href="#" onclick="showSection('home')">Home</a>
+      <a href="#" onclick="showSection('quem-somos')">Quem Somos</a>
+      <a href="#" onclick="showSection('musicas')">Músicas</a>
+      <a href="#" onclick="showSection('parcerias')">Parcerias</a>
+      <a href="https://wa.me/5511999999999" target="_blank">Contato</a>
+    </div>
+    <div class="footer-rule"></div>
+    <div class="footer-copy">
+      &copy; 2025 Os Irmãos Moreira · Rafael Moreira &amp; Erick Moreira<br>
+      Todos os direitos reservados · Composições autorais protegidas por lei.
+    </div>
+  </footer>
 
-<!-- ═══ PARCERIAS ═══ -->
-<section id="parcerias" class="section">
-  <div class="page-hero">
-    <h2>Parcerias</h2>
-    <p>Músicas criadas em colaboração com artistas especiais</p>
-    <div class="ornament-line"></div>
-  </div>
-  <div class="parcerias-content" id="parceirasList"></div>
-</section>
-
-<!-- ═══ FOOTER ═══ -->
-<footer>
-  <div class="footer-logo">Os Irmãos <span>Moreira</span></div>
-  <div class="footer-tagline">Composição · Música · Arte</div>
-  <div class="footer-links">
-    <a href="#" onclick="showSection('home')">Home</a>
-    <a href="#" onclick="showSection('quem-somos')">Quem Somos</a>
-    <a href="#" onclick="showSection('musicas')">Músicas</a>
-    <a href="#" onclick="showSection('parcerias')">Parcerias</a>
-    <a href="https://wa.me/5511999999999" target="_blank">Contato</a>
-  </div>
-  <div class="footer-rule"></div>
-  <div class="footer-copy">
-    &copy; 2025 Os Irmãos Moreira · Rafael Moreira &amp; Erick Moreira<br>
-    Todos os direitos reservados · Composições autorais protegidas por lei.
-  </div>
-</footer>
-
-<script>
-// ════════════════════════════════════════════
-//  MÚSICAS — edite aqui para adicionar as suas
-// ════════════════════════════════════════════
-const songs = [
-  {
-    id: 1,
-    title: "Canção do Irmão",
-    genre: "MPB",
-    // audio: "audios/cancao-do-irmao.mp3",
-    lyrics: `Vai, vida, vai
+  <script>
+    const songs = [
+      {
+        id: 1,
+        title: "Canção do Irmão",
+        genre: "MPB",
+        lyrics: `Vai, vida, vai
 Que eu tenho um irmão ao meu lado
 E tudo que sinto de bom
 Já foi em verso transformado
@@ -640,13 +294,12 @@ Somos dois, somos um
 Nessa estrada sem fim
 O que canto pra você
 É o que sinto em mim`
-  },
-  {
-    id: 2,
-    title: "Saudade do Interior",
-    genre: "Sertanejo",
-    // audio: "audios/saudade-do-interior.mp3",
-    lyrics: `Lembro do cheiro da terra molhada
+      },
+      {
+        id: 2,
+        title: "Saudade do Interior",
+        genre: "Sertanejo",
+        lyrics: `Lembro do cheiro da terra molhada
 Da porta de casa, da luz da janela
 Minha avó rezava de madrugada
 E o sol nascia lindo, mais bonito que ela
@@ -656,13 +309,12 @@ Interior do coração
 É onde a paz ainda mora
 Saudade não tem estação
 Ela fica, ela demora`
-  },
-  {
-    id: 3,
-    title: "Tarde de Novembro",
-    genre: "Popular",
-    // audio: "audios/tarde-de-novembro.mp3",
-    lyrics: `Novembro chegou sem avisar
+      },
+      {
+        id: 3,
+        title: "Tarde de Novembro",
+        genre: "Popular",
+        lyrics: `Novembro chegou sem avisar
 Trouxe a chuva e trouxe o frio
 Mas no peito ficou o calor
 De uma tarde às margens do rio
@@ -671,13 +323,12 @@ Você sorriu e eu entendi
 Que o tempo não apaga a beleza
 Daquilo que um dia senti
 Guardado com tanta delicadeza`
-  },
-  {
-    id: 4,
-    title: "Forró da Esperança",
-    genre: "Forró",
-    // audio: "audios/forro-da-esperanca.mp3",
-    lyrics: `Eu vim de longe, vim dançar
+      },
+      {
+        id: 4,
+        title: "Forró da Esperança",
+        genre: "Forró",
+        lyrics: `Eu vim de longe, vim dançar
 Pra deixar a tristeza pra lá
 O sanfoneiro tocou e gritou
 A esperança voltou a cantar
@@ -687,13 +338,12 @@ Ei, ei, ei, vem dançar
 A vida é curta demais pra parar
 Bota o pé, bota o coração
 E esquece o que dói por um compasso, irmão`
-  },
-  {
-    id: 5,
-    title: "Lua de Agosto",
-    genre: "Romântica",
-    // audio: "audios/lua-de-agosto.mp3",
-    lyrics: `A lua de agosto brilhou assim
+      },
+      {
+        id: 5,
+        title: "Lua de Agosto",
+        genre: "Romântica",
+        lyrics: `A lua de agosto brilhou assim
 Como os seus olhos brilham pra mim
 Num céu sem nuvens, claro e sereno
 O nosso amor foi sendo pequeno… mas imenso
@@ -703,47 +353,37 @@ Me diz que fica
 Que o agosto ainda não passou
 Me diz que a lua
 Ainda guarda o que o vento levou`
-  }
-];
+      }
+    ];
 
-// ════════════════════════════════════════════
-//  PARCERIAS — edite aqui para adicionar as suas
-// ════════════════════════════════════════════
-const parceiros = [
-  {
-    nome: "Erick Moreira / Jonas Faustino",
-    // foto: "fotos/ana-clara.jpg",
-    musicas: ["Mina Faceira", "Promessa de Volta", "Vale do Amanhecer"]
-  },
-  {
-    nome: "Rafael Moreira / Pedro Bruno",
-    // foto: "fotos/lucas.jpg",
-    musicas: ["Batidão do Sertão", "Rodovia 44", "Lua Nova"]
-  },
-  {
-    nome: "Erick Moreira / Dupreiy Moreira",
-    // foto: "fotos/mariana.jpg",
-    musicas: ["Amor Infinito", "Recomeço", "Página Virada"]
-  }
-];
+    const parceiros = [
+      {
+        nome: "Erick Moreira / Jonas Faustino",
+        musicas: ["Mina Faceira", "Promessa de Volta", "Vale do Amanhecer"]
+      },
+      {
+        nome: "Rafael Moreira / Pedro Bruno",
+        musicas: ["Batidão do Sertão", "Rodovia 44", "Lua Nova"]
+      },
+      {
+        nome: "Erick Moreira / Dupreiy Moreira",
+        musicas: ["Amor Infinito", "Recomeço", "Página Virada"]
+      }
+    ];
 
-// ════════════════════════════════════════════
-//  RENDER — não precisa editar abaixo daqui
-// ════════════════════════════════════════════
-
-const personSVG = `<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    const personSVG = `<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
   <circle cx="40" cy="28" r="18" fill="#6a6460"/>
   <ellipse cx="40" cy="68" rx="28" ry="18" fill="#6a6460"/>
 </svg>`;
 
-function renderSongs() {
-  const container = document.getElementById('musicList');
-  container.innerHTML = songs.map(s => {
-    const audioEl = s.audio
-      ? `<audio controls src="${s.audio}"></audio>`
-      : `<div class="audio-placeholder">Adicionar áudio</div>`;
-    const num = s.id < 10 ? `0${s.id}` : `${s.id}`;
-    return `
+    function renderSongs() {
+      const container = document.getElementById('musicList');
+      container.innerHTML = songs.map(s => {
+        const audioEl = s.audio
+          ? `<audio controls src="${s.audio}"></audio>`
+          : `<div class="audio-placeholder">Adicionar áudio</div>`;
+        const num = s.id < 10 ? `0${s.id}` : `${s.id}`;
+        return `
     <div class="music-item">
       <div class="music-header">
         <div class="music-left">
@@ -763,25 +403,25 @@ function renderSongs() {
         <pre>${s.lyrics}</pre>
       </div>
     </div>`;
-  }).join('');
-}
+      }).join('');
+    }
 
-function toggleLyrics(id) {
-  const panel = document.getElementById(`lyrics-${id}`);
-  const btn   = document.getElementById(`btn-${id}`);
-  const isOpen = panel.classList.contains('open');
-  panel.classList.toggle('open', !isOpen);
-  btn.classList.toggle('open', !isOpen);
-  btn.textContent = isOpen ? 'Letra' : 'Fechar';
-}
+    function toggleLyrics(id) {
+      const panel = document.getElementById(`lyrics-${id}`);
+      const btn = document.getElementById(`btn-${id}`);
+      const isOpen = panel.classList.contains('open');
+      panel.classList.toggle('open', !isOpen);
+      btn.classList.toggle('open', !isOpen);
+      btn.textContent = isOpen ? 'Letra' : 'Fechar';
+    }
 
-function renderParceiros() {
-  const container = document.getElementById('parceirasList');
-  container.innerHTML = parceiros.map(p => {
-    const fotoEl = p.foto
-      ? `<img src="${p.foto}" alt="${p.nome}">`
-      : personSVG;
-    return `
+    function renderParceiros() {
+      const container = document.getElementById('parceirasList');
+      container.innerHTML = parceiros.map(p => {
+        const fotoEl = p.foto
+          ? `<img src="${p.foto}" alt="${p.nome}">`
+          : personSVG;
+        return `
     <div class="parceiro-block">
       <div class="parceiro-foto-wrap">
         <div class="parceiro-foto">${fotoEl}</div>
@@ -792,25 +432,26 @@ function renderParceiros() {
         <ul>${p.musicas.map(m => `<li>${m}</li>`).join('')}</ul>
       </div>
     </div>`;
-  }).join('');
-}
+      }).join('');
+    }
 
-function showSection(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-function toggleMenu() {
-  document.getElementById('mobileNav').classList.toggle('open');
-}
+    function toggleMenu() {
+      document.getElementById('mobileNav').classList.toggle('open');
+    }
 
-function closeMenu() {
-  document.getElementById('mobileNav').classList.remove('open');
-}
+    function closeMenu() {
+      document.getElementById('mobileNav').classList.remove('open');
+    }
 
-renderSongs();
-renderParceiros();
-</script>
+    renderSongs();
+    renderParceiros();
+  </script>
 </body>
+
 </html>
