@@ -273,33 +273,58 @@
     margin: 1rem auto 0;
   }
 
-  /* ═══ QUEM SOMOS ═══ */
-  #quem-somos { background: var(--bg); }
+  /* ═══ VIDEOS ═══ */
+  #musicas { background: var(--bg); }
 
-  .about-content { max-width: 840px; margin: 0 auto; padding: 3.5rem 2rem; }
+.musicas-content {
+  max-width: 840px; margin: 0 auto;
+  padding: 2rem 2rem 3.5rem;
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
 
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.video-card {
+  background: var(--bg-2); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden; transition: border-color 0.2s;
+}
+.video-card:hover { border-color: var(--border-mid); }
 
-  .about-card {
-    background: var(--bg-2); border: 1px solid var(--border);
-    border-radius: 12px; padding: 1.75rem; transition: border-color 0.2s;
-  }
-  .about-card:hover { border-color: var(--border-mid); }
-  .about-card h3 {
-    font-family: 'Playfair Display', serif; font-size: 1.3rem;
-    color: var(--text-white); margin-bottom: 0.9rem;
-  }
-  .about-card p { color: var(--text-mid); line-height: 1.85; font-size: 0.93rem; font-weight: 300; }
+.video-header { padding: 1.5rem 1.75rem 1rem; }
 
-  .about-full {
-    background: var(--bg-2); border: 1px solid var(--border);
-    border-radius: 12px; padding: 1.75rem;
-  }
-  .about-full h3 {
-    font-family: 'Playfair Display', serif; font-size: 1.3rem;
-    color: var(--text-white); margin-bottom: 0.9rem;
-  }
-  .about-full p { color: var(--text-mid); line-height: 1.85; font-size: 0.93rem; font-weight: 300; }
+.video-title {
+  font-family: 'Playfair Display', serif; font-size: 1.35rem;
+  color: var(--text-white); margin: 0 0 0.35rem;
+}
+
+.video-composers {
+  color: var(--text-mid); font-size: 0.85rem;
+  font-weight: 400; letter-spacing: 0.04em;
+  text-transform: uppercase; margin: 0;
+}
+.video-composers span { color: var(--text-accent, #c4a882); }
+
+.video-embed {
+  position: relative; padding-bottom: 56.25%; height: 0;
+  margin: 0 1.75rem; border-radius: 8px; overflow: hidden;
+}
+.video-embed iframe {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%; border: none;
+}
+
+.video-thanks {
+  margin: 1rem 1.75rem 1.5rem;
+  padding: 0.85rem 1rem;
+  border-left: 2px solid var(--border);
+}
+.video-thanks-label {
+  font-size: 0.7rem; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--gold-light); font-weight: 700;
+  opacity: 0.6; margin: 0 0 0.3rem;
+}
+.video-thanks-text {
+  color: var(--text-mid); font-size: 0.82rem;
+  font-weight: 300; line-height: 1.7; margin: 0; opacity: 0.7;
+}
 
   /* ═══ MÚSICAS ═══ */
   #musicas { background: var(--bg); }

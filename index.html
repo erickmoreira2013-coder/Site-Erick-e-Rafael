@@ -18,7 +18,7 @@
     <a class="logo" href="#" onclick="showSection('home')">Irmãos <span>Moreira</span></a>
     <nav>
       <a href="#" onclick="showSection('home')">Home</a>
-      <a href="#" onclick="showSection('quem-somos')">Quem Somos</a>
+      <a href="#" onclick="showSection('videos')">Vídeos</a>
       <a href="#" onclick="showSection('musicas')">Músicas</a>
       <a href="#" onclick="showSection('parcerias')">Parcerias</a>
       <a href="https://wa.me/5511999999999" target="_blank" class="btn-contact">Entre em Contato</a>
@@ -31,7 +31,7 @@
   <!-- MENU MOBILE -->
   <div class="mobile-nav" id="mobileNav">
     <a href="#" onclick="showSection('home'); closeMenu()">Home</a>
-    <a href="#" onclick="showSection('quem-somos'); closeMenu()">Quem Somos</a>
+    <a href="#" onclick="showSection('videos'); closeMenu()">Vídeos</a>
     <a href="#" onclick="showSection('musicas'); closeMenu()">Músicas</a>
     <a href="#" onclick="showSection('parcerias'); closeMenu()">Parcerias</a>
     <a href="https://wa.me/5511999999999" target="_blank" class="btn-contact">Entre em Contato ↗</a>
@@ -73,38 +73,65 @@
     </div>
   </section>
 
-  <!-- ═══ QUEM SOMOS ═══ -->
-  <section id="quem-somos" class="section">
-    <div class="page-hero">
-      <h2>Quem Somos</h2>
-      <p>A história por trás das melodias</p>
-      <div class="ornament-line"></div>
-    </div>
-    <div class="about-content">
-      <div class="about-grid">
-        <div class="about-card">
-          <h3>Rafael Moreira</h3>
-          <p>Desde criança envolvido com a música, Rafael desenvolveu seu talento de forma natural, encontrando nas
-            composições uma forma única de expressar seus sentimentos. Sua sensibilidade melódica e domínio da harmonia
-            são marcas inconfundíveis de seu trabalho.</p>
-        </div>
-        <div class="about-card">
-          <h3>Erick Moreira</h3>
-          <p>Erick cresceu imerso no universo musical ao lado do irmão. Com olhar poético e criativo, transforma
-            palavras em versos que tocam a alma. Seu estilo lírico e sua capacidade de contar histórias através da
-            música são sua maior marca.</p>
-        </div>
+  <!-- ═══ VIDEOS ═══ -->
+<section id="videos" class="section">
+  <div class="page-hero">
+    <h2>Vídeos</h2>
+    <p>Conteúdo visual das nossas composições</p>
+    <div class="ornament-line"></div>
+  </div>
+  <div class="musicas-content">
+
+    <div class="video-card">
+      <div class="video-header">
+        <h3 class="video-title">Meu fim</h3>
+        <p class="video-composers">Compositores: <span>Rafael Moreira &amp; Erick Moreira</span></p>
       </div>
-      <div class="about-full">
-        <h3>Nossa Jornada Juntos</h3>
-        <p>Unidos pelo sangue e pela paixão pela música, Rafael e Erick Moreira formam uma dupla de compositores que
-          alia talento individual e sinergia familiar para criar canções autênticas e emocionantes. Juntos, os irmãos
-          Moreira constroem um legado musical que reflete suas vivências, seus sonhos e a profundidade do vínculo que os
-          une. Cada composição carrega um pedaço de suas histórias e o desejo de tocar corações por onde a música
-          chegar.</p>
+      <div class="video-embed">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/EJxLci0ItHA?si=jw_8adr3q0Qcq12k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <div class="video-thanks">
+        <p class="video-thanks-label">Agradecimentos</p>
+        <p class="video-thanks-text"><strong>Produção Musical:</strong> Fernando Monteiro | <strong>Participação Especial:</strong> Patrícia Acioly</p>
       </div>
     </div>
-  </section>
+
+
+    <div class="video-card">
+      <div class="video-header">
+        <h3 class="video-title">Tubaína</h3>
+        <p class="video-composers">Compositores: <span>Rafael Moreira &amp; Erick Moreira</span></p>
+      </div>
+      <div class="video-embed">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/-89ugnKksjg?si=j20m-9xMfZXmCaPn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <div class="video-thanks">
+        <p class="video-thanks-label">Agradecimentos</p>
+        <p class="video-thanks-text"><strong>Produção Musical:</strong> Fernando Monteiro | <strong>Participação Especial:</strong> Ju Moreira</p>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-header">
+        <h3 class="video-title">In Sana</h3>
+        <p class="video-composers">Compositores: <span>Rafael Moreira</span></p>
+      </div>
+      <div class="video-embed">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ckmV-Y9gFx4?si=10K3OhJQfoQOhV4h" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <div class="video-thanks">
+        <p class="video-thanks-label">Agradecimentos</p>
+        <p class="video-thanks-text"><strong>Produção Musical:</strong> Fernando Monteiro | <strong>Participação Especial:</strong> Patrícia Acioly, Ju Moreira, Vanessa Alencar</p>
+      </div>
+    </div>
+
+
+    
+
+    <!-- Repita o bloco .video-card para as outras músicas -->
+
+  </div>
+</section>
 
   <!-- ═══ MÚSICAS ═══ -->
   <section id="musicas" class="section">
@@ -288,18 +315,17 @@
 
   <!-- ═══ FOOTER ═══ -->
   <footer>
-    <div class="footer-logo">Os Irmãos <span>Moreira</span></div>
-    <div class="footer-tagline">Composição · Música · Arte</div>
+    <div class="footer-logo">Irmãos <span>Moreira</span></div> <br>
     <div class="footer-links">
       <a href="#" onclick="showSection('home')">Home</a>
-      <a href="#" onclick="showSection('quem-somos')">Quem Somos</a>
+      <a href="#" onclick="showSection('videos')">Vídeos</a>
       <a href="#" onclick="showSection('musicas')">Músicas</a>
       <a href="#" onclick="showSection('parcerias')">Parcerias</a>
       <a href="https://wa.me/5511999999999" target="_blank">Contato</a>
     </div>
     <div class="footer-rule"></div>
     <div class="footer-copy">
-      &copy; 2025 Os Irmãos Moreira · Rafael Moreira &amp; Erick Moreira<br>
+      &copy; 2026 Irmãos Moreira · Rafael Moreira &amp; Erick Moreira<br>
       Todos os direitos reservados · Composições autorais protegidas por lei.
     </div>
   </footer>
